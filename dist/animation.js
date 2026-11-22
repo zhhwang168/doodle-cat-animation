@@ -1,0 +1,73 @@
+
+const clamp=(x)=>Math.max(0,Math.min(1,x));
+const smooth=(a,b,t)=>{let u=clamp((t-a)/(b-a));return u*u*(3-2*u)};
+const mix=(a,b,u)=>a+(b-a)*u;
+const k=(keys,t)=>{if(t<=keys[0][0])return keys[0][1];for(let i=1;i<keys.length;i++){if(t<keys[i][0])return mix(keys[i-1][1],keys[i][1],smooth(keys[i-1][0],keys[i][0],t));}return keys.at(-1)[1]};
+const el=id=>document.getElementById(id);
+const tr=(id,v)=>el(id).setAttribute('transform',v);
+const op=(id,v)=>el(id).setAttribute('opacity',v);
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function renderAt(t){
+ let a=t;
+ if(t>=14.8&&t<17.6)a=0;
+ if(t>=17.6)a=Math.min(9.2,(t-17.6)*1.35+1.3);
+ const paperMode=smooth(14.65,15.1,t)*(1-smooth(17.1,17.7,t));
+ const breathe=reduced?0:Math.sin(t*2.1)*.9;
+ const jitter=reduced?0:(Math.sin(Math.floor(t*10)*1.71)*.48);
+ const anticipation=k([[0,0],[2.5,0],[2.9,-7],[3.3,4],[5.5,0],[6.3,0],[6.55,-4],[7,0]],a);
+ const x=790+anticipation;
+ const y=639+breathe;
+ const scale=1.08;
+ tr('cat','translate('+x+' '+y+') scale('+scale+')');
+ const tilt=k([[0,-7],[1.5,-7],[2.1,5],[2.8,9],[3.3,7],[5.4,-6],[5.8,-10],[6.4,-10],[6.65,0],[8.5,-3]],a);
+ tr('head','rotate('+tilt+' 0 -190) translate('+jitter+' 0)');
+ tr('tail','rotate('+(paperMode?0:Math.sin(t*2.5)*4)+' -105 98)');
+ const eyesOpen=smooth(1.2,1.5,a);
+ const smug=smooth(5.35,5.55,a)*(1-smooth(6.2,6.36,a));
+ const blink=(1-smooth(8.1,8.18,a))*0+smooth(8.1,8.18,a)*(1-smooth(8.3,8.4,a));
+ const lateBlink=t>18?(smooth(21.2,21.28,t)*(1-smooth(21.4,21.5,t))):0;
+ const open=eyesOpen*(1-smug)*(1-blink)*(1-lateBlink);
+ op('open-eyes',open);op('closed-eyes',1-open);
+ op('sleep-z',(1-eyesOpen)*(1-paperMode));
+ const look=smooth(1.55,2.2,a)*(1-smooth(6.3,6.55,a));
+ tr('pupils','translate('+(look*11)+' '+(look*10)+')');
+ const wide=smooth(6.3,6.48,a)*(1-smooth(7.1,7.5,a));
+ el('pupil-l').setAttribute('ry',24-wide*12);el('pupil-r').setAttribute('ry',24-wide*12);
+ tr('brows','translate(0 '+(-wide*15)+')');
+ el('mouth').setAttribute('d',wide>.5?'M-8 -115 Q0 -129 8 -115 Q11 -100 0 -99 Q-11 -100 -8 -115':'M0 -130 L0 -118 Q-16 -100 -29 -117 M0 -118 Q16 -100 30 -118');
+ const reach=smooth(3.0,4.25,a);
+ const pull=smooth(4.45,5.35,a);
+ const hide=smooth(7.1,7.65,a);
+ let fx=mix(1320,1050,pull),fy=mix(764,624,pull);
+ fx=mix(fx,795,hide);fy=mix(fy,675,hide);
+ const angle=3+pull*(-17)+hide*84+(a>4.25&&a<6.2?Math.sin(a*19)*4:0);
+ tr('fish','translate('+fx+' '+fy+') rotate('+angle+')');
+ const targetX=(fx-61-x)/scale,targetY=(fy-8-y)/scale;
+ const px=mix(131,targetX,reach),py=mix(42,targetY,reach);
+ const d='M91 -23 Q'+(px*.55+50)+' '+(py*.2-25)+' '+px+' '+py;
+ el('arm-outline').setAttribute('d',d);el('arm-fill').setAttribute('d',d);
+ el('fingers').setAttribute('d','M'+(px-7)+' '+(py-9)+' l-7 9 m20 -3 l-7 9');
+ op('right-arm',1-hide);
+ const wave=smooth(8.8,9.3,t)*(1-smooth(14.35,14.7,t));
+ const finalWave=smooth(23.5,24.1,t);
+ const waving=Math.max(wave,finalWave);
+ op('left-wave',waving);
+ tr('left-wave','rotate('+(waving*(Math.sin(t*9)*10))+' -105 -10)');
+ op('caught',wide);tr('caught','translate('+(x+197)+' '+(y-310)+')');
+ tr('shadow','translate('+anticipation+' 0)');
+ tr('pencil','translate('+(1570-paperMode*1000)+' '+(885-paperMode*380)+') rotate('+(33-paperMode*65)+')');
+ const lineAmount=k([[0,.66],[.9,.66],[1.2,1],[14.8,1],[15.1,.66],[17.1,.66],[17.6,1]],t);
+ el('drawing').style.setProperty('--line-amount',lineAmount);
+}
+
+const duration=11.8;let t=0,playing=false,last=0,raf;
+const play=document.querySelector('#play'),seek=document.querySelector('#seek');
+function paint(){renderAt(t);seek.value=t;document.querySelector('#time').textContent=t.toFixed(1)+' / 11.8 秒';document.querySelectorAll('[data-time]').forEach(b=>b.setAttribute('aria-pressed',String(Math.abs(t-Number(b.dataset.time))<.2)));}
+function tick(now){if(!playing)return;if(last)t=Math.min(duration,t+(now-last)/1000);last=now;paint();if(t>=duration){playing=false;play.textContent='重新播放';return;}raf=requestAnimationFrame(tick);}
+play.addEventListener('click',()=>{playing=!playing;if(playing){if(t>=duration)t=0;last=0;play.textContent='暂停';raf=requestAnimationFrame(tick);}else{cancelAnimationFrame(raf);play.textContent='继续播放';}});
+document.querySelector('#reset').addEventListener('click',()=>{playing=false;cancelAnimationFrame(raf);t=0;last=0;play.textContent='播放动画';paint();});
+seek.addEventListener('input',()=>{t=Number(seek.value);last=0;paint();});
+document.querySelectorAll('[data-time]').forEach(b=>b.addEventListener('click',()=>{t=Number(b.dataset.time);last=0;paint();}));
+document.addEventListener('visibilitychange',()=>{if(document.hidden){playing=false;cancelAnimationFrame(raf);play.textContent='继续播放';last=0;}});
+document.querySelector('#copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.querySelector('#prompt').textContent);document.querySelector('#copied').textContent='已复制';}catch{document.querySelector('#copied').textContent='请选中下方文字手动复制';}});
+paint();

@@ -1,0 +1,39 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="体验 Tube U 的涂鸦小猫动画，下载可编辑工程，学习使用 Narration Motion Director 与 HyperFrames。"><title>让涂鸦动起来 · Tube U</title><link rel="stylesheet" href="styles.css"><script defer src="animation.js"></script></head><body><div class="wrap"><header><a class="brand" href="./">TUBE U · ANIMATION LAB</a><span class="tag">Henry 与 AI 的创作实验</span></header><main><section class="hero"><div><p class="eyebrow">NARRATION MOTION DIRECTOR</p><h1>一个小动作，<br>让涂鸦<span>有了性格。</span></h1></div><p class="intro">看见鱼、伸出爪子、被发现后停一下。<br>亲手播放这只小猫，再试着做出你的版本。</p></section><section aria-label="涂鸦猫动画播放器"><div class="stage"><svg id="drawing" viewBox="0 0 1920 1080" width="1920" height="1080" aria-label="An original doodle cat steals a blue fish, hides it and waves" role="img">
+<defs><pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r=".65" fill="#c5c1b9" opacity=".33"/></pattern></defs>
+<rect width="1920" height="1080" fill="#f2c96a"/>
+<path d="M144 93 L1782 103 L1798 985 L133 973 Z" fill="#d4a94f"/>
+<path d="M127 70 L1790 80 L1775 961 L115 950 Z" fill="#fffcf6" stroke="#343936" stroke-width="3"/>
+<path d="M127 70 L1790 80 L1775 961 L115 950 Z" fill="url(#dots)"/>
+<path d="M204 805 Q873 819 1589 800" fill="none" stroke="#b5b1a7" stroke-width="3" stroke-linecap="round"/>
+<g stroke="#b3a99b" stroke-width="3" fill="none" stroke-linecap="round"><path d="M226 150 l32 5 m-18 -16 l13 30"/><path d="M1622 894 q35 -17 54 5 m-64 14 q49 -21 78 2"/><path d="M1495 174 q29 -20 49 6 q-25 28 -54 7"/></g>
+<g id="shadow"><ellipse cx="780" cy="812" rx="188" ry="16" fill="#e4e0d7"/></g>
+<g id="fish" stroke="#292f33" stroke-width="6" stroke-linejoin="round" stroke-linecap="round">
+ <path d="M-85 0 Q-12 -64 83 -2 Q-4 65 -85 0 L-137 -43 L-133 41 Z" fill="#71b7be"/>
+ <path d="M-15 -30 L-27 -57 L23 -36 M-17 30 L-27 52 L23 36" fill="#71b7be"/>
+ <path d="M40 -26 Q19 0 42 27 M-31 -12 q16 13 0 26 M-6 -14 q15 14 0 28" fill="none"/>
+ <circle cx="57" cy="-9" r="5" fill="#292f33" stroke="none"/>
+</g>
+<g id="cat" stroke="#292f33" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+ <g id="tail"><path d="M-104 113 C-213 113 -251 31 -218 -12 C-189 -50 -160 -15 -181 5 C-203 36 -169 73 -111 72" fill="#fffdf8"/><path d="M-218 -12 q29 8 37 17" fill="none"/></g>
+ <path id="body" d="M-98 -96 C-150 -42 -154 101 -116 148 Q-65 182 -1 161 Q73 184 125 146 C156 91 139 -48 93 -98 Z" fill="#fffdf8"/>
+ <path d="M-83 84 q-22 25 -18 66 M-66 134 l-1 25 M-48 138 l-1 23 M64 86 q24 24 25 66 M63 137 l1 24 M82 137 l1 24" fill="none"/>
+ <path d="M-109 -34 q32 13 25 54 q-14 24 -35 2" fill="#fffdf8"/>
+ <g id="head">
+  <path d="M-145 -205 L-153 -333 Q-151 -347 -136 -335 L-73 -282 Q0 -306 74 -282 L139 -335 Q154 -348 155 -330 L149 -207 C177 -156 158 -89 91 -65 Q0 -40 -90 -64 C-159 -89 -179 -155 -145 -205 Z" fill="#fffdf8"/>
+  <path d="M-133 -305 L-125 -239 L-90 -273 Z M132 -306 L125 -239 L92 -274 Z" fill="#d57b53" stroke="none"/>
+  <path d="M-19 -296 l7 39 M13 -297 l-1 36 M43 -290 l-10 36" fill="none" stroke="#d57b53" stroke-width="13"/>
+  <ellipse cx="-102" cy="-130" rx="27" ry="13" fill="#edb09b" stroke="none" opacity=".7"/><ellipse cx="101" cy="-130" rx="27" ry="13" fill="#edb09b" stroke="none" opacity=".7"/>
+  <g id="open-eyes"><ellipse id="eye-l" cx="-61" cy="-184" rx="29" ry="39" fill="#fff" stroke-width="5"/><ellipse id="eye-r" cx="61" cy="-184" rx="29" ry="39" fill="#fff" stroke-width="5"/><g id="pupils" stroke="none" fill="#292f33"><ellipse id="pupil-l" cx="-55" cy="-181" rx="11" ry="24"/><ellipse id="pupil-r" cx="67" cy="-181" rx="11" ry="24"/><circle cx="-58" cy="-191" r="4" fill="#fff"/><circle cx="64" cy="-191" r="4" fill="#fff"/></g></g>
+  <g id="closed-eyes" fill="none"><path d="M-88 -177 q28 21 53 -1 M35 -178 q27 22 53 0"/></g>
+  <path d="M-12 -142 Q0 -149 13 -141 L1 -130 Z" fill="#d57b53" stroke-width="4"/>
+  <path id="mouth" d="M0 -130 L0 -118 Q-16 -100 -29 -117 M0 -118 Q16 -100 30 -118" fill="none" stroke-width="5"/>
+  <path d="M-105 -144 l-65 -12 M-108 -126 l-66 9 M105 -144 l65 -12 M109 -124 l67 10" fill="none" stroke-width="4"/>
+  <g id="brows" fill="none" stroke-width="5"><path d="M-89 -238 q25 -13 49 0 M39 -238 q26 -12 50 0"/></g>
+ </g>
+ <g id="left-wave"><path d="M-103 -13 Q-152 -32 -167 -97 Q-167 -124 -186 -120 Q-211 -110 -192 -74 Q-175 -2 -119 27" fill="#fffdf8"/><path d="M-185 -106 l-7 9 m17 -3 l-7 10" fill="none" stroke-width="4"/></g>
+ <g id="right-arm"><path id="arm-outline" d="M91 -23 Q120 8 131 42" fill="none" stroke-width="43"/><path id="arm-fill" d="M91 -23 Q120 8 131 42" fill="none" stroke="#fffdf8" stroke-width="30"/><path id="fingers" d="M126 29 l-8 8 m19 0 l-8 8" fill="none" stroke-width="4"/></g>
+</g>
+<g id="caught" stroke="#d57b53" stroke-width="8" fill="none" stroke-linecap="round"><path d="M0 -14 l-2 -28 M19 -5 l18 -20 M-20 -5 l-19 -20"/></g>
+<g id="sleep-z" fill="#7a8787" font-family="DoodleSans,sans-serif" font-size="42" font-weight="700"><text x="486" y="370">z</text><text x="449" y="325" font-size="30">z</text></g>
+<g id="pencil" stroke="#292f33" stroke-width="4" stroke-linejoin="round"><path d="M0 0 L-22 -52 L-21 -268 Q0 -287 21 -268 L22 -52 Z" fill="#e2a562"/><path d="M0 0 L-22 -52 L22 -52 Z" fill="#e9d1ad"/><path d="M0 0 L-7 -17 L7 -17 Z" fill="#292f33"/><path d="M-21 -268 Q0 -287 21 -268 L21 -238 L-21 -238 Z" fill="#cf8276"/><path d="M-8 -58 l0 -177 M8 -58 l0 -177" fill="none" stroke="#a8753b" stroke-width="3"/></g>
+</svg></div><div class="controls"><button id="play" class="primary">播放动画</button><button id="reset">从头开始</button><span id="time" class="time"></span></div><label class="sr" for="seek">调整动画进度</label><input id="seek" class="scrub" type="range" min="0" max="11.8" step="0.01" value="0"><div class="beats" role="group" aria-label="查看关键动作"><button data-time="1.8">看见鱼</button><button data-time="4.1">伸出爪子</button><button data-time="5.3">拉近一点</button><button data-time="6.5">被发现了</button><button data-time="7.8">藏好，装无辜</button><button data-time="10">打个招呼</button></div></section><section class="story"><div><p class="eyebrow">WATCH → TRY → REFINE</p><h2>你也可以从这个工程开始</h2><p>下载并解压工程，在 Codex 中打开文件夹。先安装技能与所需的 HyperFrames 工具，再提出一个可以看见的小修改。</p><div class="actions"><a class="button primary" href="assets/Doodle-Practice-Starter-v01.zip" download>下载动画工程 ZIP</a><a class="button" href="https://github.com/zhhwang168/narration-motion-director" target="_blank" rel="noopener noreferrer">获取导演技能</a></div><p class="note">网页可直接播放。ZIP 是工程文件；Skill 是创作指导；HyperFrames 负责预览与导出。它们不是同一个东西。</p></div><div><h2>从一个具体请求开始</h2><pre id="prompt">使用 narration-motion-director 和 HyperFrames，打开这个动画工程。保持小猫的画风、动作和节奏不变，只把鱼从蓝色改成粉色。先制作预览，让我比较修改前后的效果。</pre><button id="copy">复制请求</button><span id="copied" role="status"></span></div></section><details><summary>第一次使用：工程和技能怎样配合？</summary><ol><li>解压动画工程，在可访问本地文件的 Codex 中打开文件夹。</li><li>按技能仓库的说明安装 Narration Motion Director；准备好 HyperFrames 及其依赖。</li><li>把上面的请求发给 Codex，查看预览，再决定是否导出视频。</li></ol><p class="intro">普通 ChatGPT 对话中的文件上传，不等于已经安装本地动画运行环境。</p></details><details><summary>关于这个动画和创作技能</summary><p class="intro">由 Henry / Tube U 与 Codex 一起开发。导演技能吸收了已注明出处的规划与反馈思路，并按实际动画制作经验重新整理。参考来源和许可范围请见公开仓库的 ATTRIBUTION.md。此页展示小猫动作，不包含完整教程或私人录音。</p></details></main><footer>Henry / Tube U · 保持好奇，把想法做出来。<br><a href="https://github.com/zhhwang168/narration-motion-director">查看技能、参考出处与安装说明</a></footer></div></body></html>
