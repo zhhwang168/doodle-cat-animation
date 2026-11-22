@@ -62,12 +62,15 @@ function renderAt(t){
 
 const duration=11.8;let t=0,playing=false,last=0,raf;
 const play=document.querySelector('#play'),seek=document.querySelector('#seek');
-function paint(){renderAt(t);seek.value=t;document.querySelector('#time').textContent=t.toFixed(1)+' / 11.8 秒';document.querySelectorAll('[data-time]').forEach(b=>b.setAttribute('aria-pressed',String(Math.abs(t-Number(b.dataset.time))<.2)));}
-function tick(now){if(!playing)return;if(last)t=Math.min(duration,t+(now-last)/1000);last=now;paint();if(t>=duration){playing=false;play.textContent='重新播放';return;}raf=requestAnimationFrame(tick);}
-play.addEventListener('click',()=>{playing=!playing;if(playing){if(t>=duration)t=0;last=0;play.textContent='暂停';raf=requestAnimationFrame(tick);}else{cancelAnimationFrame(raf);play.textContent='继续播放';}});
-document.querySelector('#reset').addEventListener('click',()=>{playing=false;cancelAnimationFrame(raf);t=0;last=0;play.textContent='播放动画';paint();});
+function paint(){renderAt(t);seek.value=t;document.querySelector('#time').textContent=t.toFixed(1)+' / 11.8 '+window.catI18n.t('seconds');document.querySelectorAll('[data-time]').forEach(b=>b.setAttribute('aria-pressed',String(Math.abs(t-Number(b.dataset.time))<.2)));}
+function tick(now){if(!playing)return;if(last)t=Math.min(duration,t+(now-last)/1000);last=now;paint();if(t>=duration){playing=false;play.textContent=window.catI18n.t('replay');return;}raf=requestAnimationFrame(tick);}
+play.addEventListener('click',()=>{playing=!playing;if(playing){if(t>=duration)t=0;last=0;play.textContent=window.catI18n.t('pause');raf=requestAnimationFrame(tick);}else{cancelAnimationFrame(raf);play.textContent=window.catI18n.t('resume');}});
+document.querySelector('#reset').addEventListener('click',()=>{playing=false;cancelAnimationFrame(raf);t=0;last=0;play.textContent=window.catI18n.t('play');paint();});
 seek.addEventListener('input',()=>{t=Number(seek.value);last=0;paint();});
 document.querySelectorAll('[data-time]').forEach(b=>b.addEventListener('click',()=>{t=Number(b.dataset.time);last=0;paint();}));
-document.addEventListener('visibilitychange',()=>{if(document.hidden){playing=false;cancelAnimationFrame(raf);play.textContent='继续播放';last=0;}});
-document.querySelector('#copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.querySelector('#prompt').textContent);document.querySelector('#copied').textContent='已复制';}catch{document.querySelector('#copied').textContent='请选中下方文字手动复制';}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){playing=false;cancelAnimationFrame(raf);play.textContent=window.catI18n.t('resume');last=0;}});
+document.querySelector('#copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.querySelector('#prompt').textContent);document.querySelector('#copied').textContent=window.catI18n.t('copied');}catch{document.querySelector('#copied').textContent=window.catI18n.t('copyFail');}});
 paint();
+
+window.addEventListener('cat-language-change',()=>{paint();play.textContent=window.catI18n.t(playing?'pause':t>=duration?'replay':t>0?'resume':'play');});
+play.textContent=window.catI18n.t('play');
